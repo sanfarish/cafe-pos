@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   orders.init({
-    id: DataTypes.UUID,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true
+    },
     payment_id: DataTypes.UUID,
     bill: DataTypes.STRING,
     created_at: DataTypes.DATE

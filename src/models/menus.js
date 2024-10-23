@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   menus.init({
-    id: DataTypes.UUID,
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true
+    },
     name: DataTypes.STRING,
     category_id: DataTypes.UUID,
     price: DataTypes.INTEGER,
