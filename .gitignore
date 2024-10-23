@@ -1,4 +1,7 @@
+.vscode
 coverage
+cashier_pos.session.sql
 node_modules
 requests
 src/.env
+tools

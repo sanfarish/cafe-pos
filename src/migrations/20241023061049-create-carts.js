@@ -11,10 +11,12 @@ module.exports = {
       // },
       order_id: {
         allowNull: false,
+        references: { model: 'orders', key: 'id' },
         type: Sequelize.UUID
       },
       menu_id: {
         allowNull: false,
+        references: { model: 'menus', key: 'id' },
         type: Sequelize.UUID
       },
       quantity: {

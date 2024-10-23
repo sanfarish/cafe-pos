@@ -20,6 +20,7 @@ module.exports = {
       },
       category_id: {
         allowNull: false,
+        references: { model: 'categories', key: 'id' },
         type: Sequelize.UUID
       },
       price: {

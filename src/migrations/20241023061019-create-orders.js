@@ -16,6 +16,7 @@ module.exports = {
       },
       payment_id: {
         allowNull: false,
+        references: { model: 'payments', key: 'id' },
         type: Sequelize.UUID
       },
       bill: {
