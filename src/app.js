@@ -4,6 +4,7 @@ const cors = require('cors');
 const logger = require('morgan');
 
 const category = require('./routes/category');
+const payments = require('./routes/payments');
 const menus = require('./routes/menus');
 
 const others = require('./middlewares/othersHandler');
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/category', category);
+app.use('/payments', payments);
 app.use('/menus', menus);
 
 app.use(errors)

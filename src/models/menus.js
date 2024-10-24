@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const category = require('./category');
 module.exports = (sequelize, DataTypes) => {
   class menus extends Model {
     /**
@@ -12,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // menus.hasOne(models.category);
       menus.belongsTo(models.category, { foreignKey: 'category_id' });
     }
   }
