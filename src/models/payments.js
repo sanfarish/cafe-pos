@@ -16,13 +16,22 @@ module.exports = (sequelize, DataTypes) => {
   payments.init({
     id: {
       type: DataTypes.UUID,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     },
-    name: DataTypes.STRING,
-    account: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    account: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'payments',
+    freezeTableName: true,
+    underscored: true,
     timestamps: false
   });
   return payments;

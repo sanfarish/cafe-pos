@@ -17,15 +17,30 @@ module.exports = (sequelize, DataTypes) => {
   menus.init({
     id: {
       type: DataTypes.UUID,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     },
-    name: DataTypes.STRING,
-    category_id: DataTypes.UUID,
-    price: DataTypes.INTEGER,
-    status: DataTypes.BOOLEAN
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    category_id: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'menus',
+    freezeTableName: true,
+    underscored: true,
     timestamps: false
   });
   return menus;

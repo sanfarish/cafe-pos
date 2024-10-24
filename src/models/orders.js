@@ -17,14 +17,26 @@ module.exports = (sequelize, DataTypes) => {
   orders.init({
     id: {
       type: DataTypes.UUID,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     },
-    payment_id: DataTypes.UUID,
-    bill: DataTypes.STRING,
-    created_at: DataTypes.DATE
+    payment_id: {
+      type:DataTypes.UUID,
+      allowNull: false
+    },
+    bill: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'orders',
+    freezeTableName: true,
+    underscored: true,
     timestamps: false
   });
   return orders;

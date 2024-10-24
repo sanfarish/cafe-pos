@@ -14,12 +14,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   carts.init({
-    order_id: DataTypes.UUID,
-    menu_id: DataTypes.UUID,
-    quantity: DataTypes.INTEGER
+    order_id: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    menu_id: {
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'carts',
+    freezeTableName: true,
+    underscored: true,
     timestamps: false
   });
   return carts;
