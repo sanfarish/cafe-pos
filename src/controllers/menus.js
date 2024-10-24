@@ -9,12 +9,9 @@ const getAll =  async (req, res, next) => {
                 'price',
                 'status'
             ],
-            include: [{
-                model: models.category,
-                attributes: [ 'id', 'name' ]
-            }]
+            include: models.category
         });
-        res.status(201).json(data);
+        res.status(200).json(data);
     } catch (error) {
         next(error);
     };
