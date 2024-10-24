@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      carts.belongsTo(models.orders, { foreignKey: 'order_id' });
+      carts.belongsTo(models.menus,  { foreignKey: 'menu_id' });
     }
   }
   carts.init({
@@ -33,5 +35,6 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     timestamps: false
   });
+  carts.removeAttribute('id');
   return carts;
 };
