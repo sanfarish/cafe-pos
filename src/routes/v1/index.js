@@ -12,6 +12,6 @@ app.use("/category", category);
 app.use("/payments", payments);
 app.use("/menus", menus);
 app.use("/orders", orders);
-app.use('/docs', swaggerUI.serve, swaggerUI.setup(docs));
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(docs));
 
 module.exports = app;

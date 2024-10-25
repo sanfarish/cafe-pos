@@ -12,7 +12,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(cors());
 
-// app.use('/', (req, res) => res.status(307).redirect('/v1/docs'));
+app.get([ "/", "/v1" ], (req, res) => res.redirect(302, "/v1/docs"));
 app.use("/v1", v1);
 
 app.use(errors);
