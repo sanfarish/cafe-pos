@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-require('dotenv').config();
+require("dotenv").config();
 
-const app = require('./app');
+const app = require("./app");
 
 const port = process.env.PORT || 3001;
 

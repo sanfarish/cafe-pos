@@ -1,0 +1,7 @@
+**/.git
+**/.vscode
+**/coverage
+**/node_modules
+**/tools
+src/.env
+cashier_pos.session.sql

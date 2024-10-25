@@ -3,10 +3,10 @@ module.exports = (err, req, res, next) => {
 		console.error(err);
 		if (!err.statusCode) {
 			err.statusCode = 500;
-		};
+		}
 		return res.status(err.statusCode).json({
-			message: err.message.toLowerCase()
+			message: err.message.toLowerCase(),
 		});
-	};
+	}
 	next();
 };

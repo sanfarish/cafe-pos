@@ -1,42 +1,51 @@
 {
-  "name": "cashier-pos-backend",
-  "version": "1.0.0",
-  "description": "Server for Cashier POS app",
-  "main": "./src/app.js",
-  "scripts": {
-    "test": "jest",
-    "start": "cd src && node server.js",
-    "dev": "cd src && nodemon server.js",
-    "migrate:all": "cd src && npx sequelize-cli db:migrate",
-    "migrate:clear": "cd src && npx sequelize-cli db:migrate:undo:all",
-    "seed:all": "cd src && npx sequelize-cli db:seed:all",
-    "seed:clear": "cd src && npx sequelize-cli db:seed:undo:all"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sanfarish/cashier-pos-backend.git"
-  },
-  "keywords": [
-    "point-of-sales"
-  ],
-  "author": "Faris Hasan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sanfarish/cashier-pos-backend/issues"
-  },
-  "homepage": "https://github.com/sanfarish/cashier-pos-backend#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1",
-    "morgan": "^1.10.0",
-    "mysql2": "^3.11.3",
-    "pg": "^8.13.1",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.4"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.7",
-    "sequelize-cli": "^6.6.2"
-  }
+	"name": "cashier-pos-backend",
+	"version": "1.0.0",
+	"description": "Server for Cashier POS app",
+	"main": "./src/app.js",
+	"scripts": {
+		"test": "jest",
+		"start": "cd src && node server.js",
+		"dev": "cd src && nodemon server.js",
+		"migrate:all": "cd src && npx sequelize-cli db:migrate",
+		"migrate:clear": "cd src && npx sequelize-cli db:migrate:undo:all",
+		"seed:all": "cd src && npx sequelize-cli db:seed:all",
+		"seed:clear": "cd src && npx sequelize-cli db:seed:undo:all",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"prettier": "prettier --check .",
+		"prettier:fix": "prettier --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sanfarish/cashier-pos-backend.git"
+	},
+	"keywords": [
+		"point-of-sales"
+	],
+	"author": "Faris Hasan",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/sanfarish/cashier-pos-backend/issues"
+	},
+	"homepage": "https://github.com/sanfarish/cashier-pos-backend#readme",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.5",
+		"express": "^4.21.1",
+		"morgan": "^1.10.0",
+		"mysql2": "^3.11.3",
+		"pg": "^8.13.1",
+		"pg-hstore": "^2.3.4",
+		"sequelize": "^6.37.4"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.13.0",
+		"eslint": "^9.13.0",
+		"eslint-config-prettier": "^9.1.0",
+		"globals": "^15.11.0",
+		"nodemon": "^3.1.7",
+		"prettier": "3.3.3",
+		"sequelize-cli": "^6.6.2"
+	}
 }
