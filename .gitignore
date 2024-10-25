@@ -1,6 +1,6 @@
+.env
 .vscode
 coverage
 cashier_pos.session.sql
 node_modules
-src/.env
 tools

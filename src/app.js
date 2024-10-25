@@ -5,7 +5,7 @@ const logger = require("morgan");
 
 const v1 = require("./routes/v1");
 
-const others = require("./middlewares/othersHandler");
+const notFound = require("./middlewares/notFoundHandler");
 const errors = require("./middlewares/errorsHandler");
 
 app.use(logger("dev"));
@@ -15,6 +15,6 @@ app.use(cors());
 app.use("/v1", v1);
 
 app.use(errors);
-app.use("*", others);
+app.use("*", notFound);
 
 module.exports = app;

@@ -12,7 +12,7 @@ module.exports = {
 		password: process.env.DB_PASSWORD,
 		database: "cashier_pos",
 		host: "127.0.0.1",
-		dialect: process.env.DB_DIALECT,
+		dialect: "mysql",
 		logging: false,
 	},
 	production: {
@@ -20,7 +20,7 @@ module.exports = {
 		password: process.env.DB_PASSWORD,
 		database: "cashier_pos",
 		host: "127.0.0.1",
-		dialect: process.env.DB_DIALECT,
+		dialect: "postgres",
 		logging: false,
 	},
 };
