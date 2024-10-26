@@ -18,7 +18,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/sanfarish/cashier-pos-backend.git"
+		"url": "git+https://github.com/sanfarish/cashier-pos.git"
 	},
 	"keywords": [
 		"point-of-sales"
@@ -26,9 +26,9 @@
 	"author": "Faris Hasan",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/sanfarish/cashier-pos-backend/issues"
+		"url": "https://github.com/sanfarish/cashier-pos/issues"
 	},
-	"homepage": "https://github.com/sanfarish/cashier-pos-backend#readme",
+	"homepage": "https://github.com/sanfarish/cashier-pos#readme",
 	"dependencies": {
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",

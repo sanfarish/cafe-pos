@@ -1,0 +1,43 @@
+{
+  "name": "cashier-pos-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Client-side for Cashier POS app",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanfarish/cashier-pos.git"
+  },
+  "keywords": [
+    "point-of-sales"
+  ],
+  "author": "Faris Hasan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanfarish/cashier-pos/issues"
+  },
+  "homepage": "https://github.com/sanfarish/cashier-pos#readme",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint": "^9.13.0",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.13",
+    "globals": "^15.11.0",
+    "vite": "^5.4.9"
+  }
+}
