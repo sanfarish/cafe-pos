@@ -24,22 +24,24 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-        cache-dependency-path: backend/package-lock.json
+        working-directory: backend
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Install SSH Client
+      working-directory: backend
       run: sudo apt-get install openssh-client -y
     - name: Deploy using SSH
       uses: appleboy/ssh-action@v1.1.0
       with:
+        working-directory: backend
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          cd ~/cashier-pos
+          cd cashier-pos
           git pull origin main
           git status
-          cd ~/backend
+          cd backend
           npm install
           pm2 restart cashier-pos

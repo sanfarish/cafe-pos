@@ -24,12 +24,12 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-        cache-dependency-path: backend/package-lock.json
+        working-directory: backend
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: NPM CI
-      working-directory: ~/backend
+      working-directory: backend
       run: npm ci
     - name: NPM Tests
-      working-directory: ~/backend
+      working-directory: backend
       run: npm test
