@@ -6,7 +6,7 @@ jest.mock('morgan', () => jest.fn(() => (req, res, next) => next()));
 
 describe('category routes test', () => {
     
-    describe('GET /v1/category', () => {
+    describe('GET /api/v1/category', () => {
         
         const mockData = [
             {
@@ -19,7 +19,7 @@ describe('category routes test', () => {
         
         it('should return: code 200 with expected body, when given good request', async () => {
             
-            const res = await request(app).get('/v1/category');
+            const res = await request(app).get('/api/v1/category');
             expect(res.statusCode).toBe(200);
             expect(res.body).toStrictEqual(mockData);
         });
@@ -29,13 +29,13 @@ describe('category routes test', () => {
 
         it('should return: code 500 with expected body, when server error', async () => {
             
-            const res = await request(app).get('/v1/category');
+            const res = await request(app).get('/api/v1/category');
             expect(res.statusCode).toBe(500);
             expect(res.body.message).toBe(mockMessage);
         });
     });
 
-    describe('POST /v1/category', () => {
+    describe('POST /api/v1/category', () => {
 
         const mockGoodBody = { name: "test category 2" };
         const mockDB = jest.spyOn(models.category, 'create');
@@ -48,7 +48,7 @@ describe('category routes test', () => {
 
         it('should return: code 201 with expected body, when given good request', async () => {
 
-            const res = await request(app).post('/v1/category').send(mockGoodBody);
+            const res = await request(app).post('/api/v1/category').send(mockGoodBody);
             expect(res.statusCode).toBe(201);
             expect(res.body.status).toBe("success");
             expect(res.body.data.id).toBeDefined();
@@ -60,13 +60,13 @@ describe('category routes test', () => {
 
         it('should return: code 500 with expected body, when given bad request', async () => {
 
-            const res = await request(app).post('/v1/category').send(mockBadBody);
+            const res = await request(app).post('/api/v1/category').send(mockBadBody);
             expect(res.statusCode).toBe(500);
             expect(res.body.message).toBe(mockMessage);
         });
     });
 
-    describe('DELETE /v1/category/:id', () => {
+    describe('DELETE /api/v1/category/:id', () => {
 
         const mockData = {
             id: "16903a84-61c1-40ad-9762-28904078f14b",
@@ -77,7 +77,7 @@ describe('category routes test', () => {
 
         it('should return: code 204 with no content, when given good request', async () => {
 
-            const res = await request(app).delete(`/v1/category/${mockData.id}`);
+            const res = await request(app).delete(`/api/v1/category/${mockData.id}`);
             expect(res.statusCode).toBe(204);
             expect(res.body).toStrictEqual({});
         });
@@ -87,13 +87,13 @@ describe('category routes test', () => {
 
         it('should return: code 500 with expected body, when given bad request', async () => {
 
-            const res = await request(app).delete(`/v1/category/anything`);
+            const res = await request(app).delete(`/api/v1/category/anything`);
             expect(res.statusCode).toBe(500);
             expect(res.body.message).toBe(mockMessage);
         });
     });
 
-    describe('PUT /v1/category/:id', () => {
+    describe('PUT /api/v1/category/:id', () => {
 
         const mockData = {
             id: "16903a84-61c1-40ad-9762-28904078f14b",
@@ -110,7 +110,7 @@ describe('category routes test', () => {
 
         it('should return: code 200 with expected body, when given good request', async () => {
 
-            const res = await request(app).put(`/v1/category/${mockData.id}`).send(mockBody);
+            const res = await request(app).put(`/api/v1/category/${mockData.id}`).send(mockBody);
             expect(res.statusCode).toBe(200);
             expect(res.body.status).toBe("success");
             expect(res.body.data.name).toBe(mockBody.name);
@@ -121,7 +121,7 @@ describe('category routes test', () => {
 
         it('should return: code 500 with expected body, when given bad request', async () => {
 
-            const res = await request(app).put(`/v1/category/anything`).send(mockBody);
+            const res = await request(app).put(`/api/v1/category/anything`).send(mockBody);
             expect(res.statusCode).toBe(500);
             expect(res.body.message).toBe(mockMessage);
         });
