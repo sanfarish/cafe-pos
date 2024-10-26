@@ -12,8 +12,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(cors());
 
-app.get([ "/", "/v1" ], (req, res) => res.redirect(302, "/v1/docs"));
-app.use("/v1", v1);
+app.get([ "/api", "/api/v1" ], (req, res) => res.redirect(302, "/api/v1/docs"));
+app.use("/api/v1", v1);
 
 app.use(errors);
 app.use("*", notFound);
