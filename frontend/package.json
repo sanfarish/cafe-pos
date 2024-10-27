@@ -1,8 +1,8 @@
 {
-  "name": "cashier-pos-frontend",
+  "name": "cafe-pos-frontend",
   "private": true,
   "version": "1.0.0",
-  "description": "Client-side for Cashier POS app",
+  "description": "Client-side for Cafe POS app",
   "type": "module",
   "scripts": {
     "test": "jest",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sanfarish/cashier-pos.git"
+    "url": "git+https://github.com/sanfarish/cafe-pos.git"
   },
   "keywords": [
     "point-of-sales"
@@ -21,9 +21,9 @@
   "author": "Faris Hasan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sanfarish/cashier-pos/issues"
+    "url": "https://github.com/sanfarish/cafe-pos/issues"
   },
-  "homepage": "https://github.com/sanfarish/cashier-pos#readme",
+  "homepage": "https://github.com/sanfarish/cafe-pos#readme",
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

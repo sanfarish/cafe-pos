@@ -38,9 +38,9 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
-          cd cashier-pos
+          cd cafe-pos
           git pull origin main
           git status
           cd backend
           npm install
-          pm2 restart cashier-pos
+          pm2 restart cafe-pos
