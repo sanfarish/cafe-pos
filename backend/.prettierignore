@@ -1,13 +1,9 @@
-**/.git
-**/.vscode
 **/coverage
 **/node_modules
 **/tests
-**/tools
 **/src/config
 **/src/migrations
 **/src/models
 **/src/seeders
 .env
-cashier_pos.session.sql
 jest.config.js
