@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 concurrency:
-  group: cd-${{ github.workflow }}
+  group: cd
   cancel-in-progress: false
 
 jobs:
