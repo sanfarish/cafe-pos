@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Cashier POS - OpenAPI 3.0",
-    "description": "This is a Cashier POS Server based on the OpenAPI 3.0 specification.",
+    "title": "Cafe POS - OpenAPI 3.0",
+    "description": "This is a Cafe POS Server based on the OpenAPI 3.0 specification.",
     "contact": {
       "email": "farisfalah@gmail.com"
     },
@@ -14,11 +14,11 @@
   },
   "externalDocs": {
     "description": "Find out more about this project",
-    "url": "http:github.com/sanfarish/cashier-pos-backend"
+    "url": "http:github.com/sanfarish/cafe-pos"
   },
   "servers": [
     {
-      "url": "https://cashierpos.farishasan.web.id/api/v1"
+      "url": "https://cafepos.farishasan.web.id/api/v1"
     }
   ],
   "tags": [
