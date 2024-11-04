@@ -22,9 +22,8 @@ function App() {
         variant='h1'
         sx={{ my: 4, textAlign: "center", color: "primary.main"}}
       >
-        Services
+        Menu
       </Typography>
-      <Typography variant='h2'>Overview</Typography>
       <Box
         sx={{
           display: "flex",
@@ -44,18 +43,26 @@ function App() {
           {menus.map((menu) => {
             return (
               <Paper elevation={3} sx={{ width: 320, textAlign: "center" }} key={menus.indexOf(menu)}>
-                <Box sx={{ m: 3 }}>
-                  <Typography variant='h3'>{menu.name}</Typography>
-                  {/* <Box
+                <Box
+                  sx={{
+                    m: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant='h2'>{menu.name}</Typography>
+                  <Box
                     component="img"
                     sx={{
                       mt: 2,
-                      maxWidth: 100,
-                      maxHeight: 100,
+                      maxWidth: 200,
+                      maxHeight: 200,
                     }}
                     alt='samples'
-                    src={menu.pic}
-                  /> */}
+                    src={menu.image}
+                  />
+                  <Typography variant='h3' sx={{ mt: 2 }}>{menu.price}</Typography>
                   <Button variant='contained' color='secondary' sx={{ mt: 2 }}>
                     Add
                   </Button>

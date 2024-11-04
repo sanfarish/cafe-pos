@@ -3,7 +3,8 @@ const models = require("../../models");
 const getAll = async (req, res, next) => {
 	try {
 		const data = await models.menus.findAll({
-			attributes: ["id", "name", "price", "status"],
+			order: [["name", "ASC"]],
+			attributes: ["id", "name", "price", "image", "status"],
 			include: models.category,
 		});
 		res.status(200).json(data);
