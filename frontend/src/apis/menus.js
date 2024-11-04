@@ -1,13 +1,18 @@
 import axios from "axios"
 
+function getUrl() {
+    if (!import.meta.env.VITE_BASE_URL) {
+        console.info("running without environment variables")
+        return "http://localhost:3001/api/v1"
+    }
+    return import.meta.env.VITE_BASE_URL
+}
+
 async function getMenus() {
-    // const urlDev = "http://localhost:3001/api/v1"
-    const urlProd = "https://cafepos.farishasan.web.id/api/v1"
-    // const res = await axios.get(urlDev + "/menus")
-    const res = await axios.get(urlProd + "/menus")
+    const url = getUrl()
+    const res = await axios.get(url + "/menus")
     const data = res.data.map(item => {
-        // item.image = urlDev + "/images/" + item.image
-        item.image = urlProd + "/images/" + item.image
+        item.image = url + "/images/" + item.image
         return item
     })
     return data

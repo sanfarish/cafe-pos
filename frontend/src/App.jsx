@@ -40,7 +40,7 @@ function App() {
             gap: 4,
           }}
         >
-          {menus.map((menu) => {
+          {menus && menus.map((menu) => {
             return (
               <Paper elevation={3} sx={{ width: 320, textAlign: "center" }} key={menus.indexOf(menu)}>
                 <Box
@@ -62,7 +62,12 @@ function App() {
                     alt='samples'
                     src={menu.image}
                   />
-                  <Typography variant='h3' sx={{ mt: 2 }}>{menu.price}</Typography>
+                  <Typography
+                    variant='h3'
+                    sx={{ mt: 2 }}
+                  >
+                    Rp {menu.price.toLocaleString()},00
+                  </Typography>
                   <Button variant='contained' color='secondary' sx={{ mt: 2 }}>
                     Add
                   </Button>
