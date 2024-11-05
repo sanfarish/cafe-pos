@@ -12,7 +12,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(cors());
 
-app.use("/favicon.ico", express.static("favicon/favicon.ico"));
+app.use("/favicon.ico", express.static("public/favicon.ico"));
 app.get([ "/api", "/api/v1" ], (req, res) => res.redirect(302, "/api/v1/docs"));
 app.use("/api/v1", v1);
 
