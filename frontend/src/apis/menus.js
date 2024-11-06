@@ -8,7 +8,7 @@ function getUrl() {
     return import.meta.env.VITE_BASE_URL
 }
 
-async function getMenus() {
+async function getAll() {
     const url = getUrl()
     const res = await axios.get(url + "/menus")
     const data = res.data.map(item => {
@@ -18,4 +18,4 @@ async function getMenus() {
     return data
 }
 
-export { getMenus }
+export { getAll }
