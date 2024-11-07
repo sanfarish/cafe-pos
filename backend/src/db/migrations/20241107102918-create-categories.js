@@ -25,7 +25,6 @@ module.exports = {
   },
   // eslint-disable-next-line no-unused-vars
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('category'); // old table name, will be removed in next commit after server update
     await queryInterface.dropTable('categories');
   }
 };
