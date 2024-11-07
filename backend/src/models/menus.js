@@ -1,52 +1,36 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class menus extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      menus.belongsTo(models.category, { foreignKey: "category_id" });
+      menus.belongsTo(models.categories, { foreignKey: "category_id" });
     }
   }
-  menus.init(
-    {
-      id: {
-        type: DataTypes.UUID,
-        primaryKey: true,
-        allowNull: false,
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      category_id: {
-        type: DataTypes.UUID,
-        allowNull: false,
-      },
-      price: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      images: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      status: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
+  menus.init({
+    name: {
+      type: DataTypes.STRING(64),
+      allowNull: false,
     },
-    {
-      sequelize,
-      modelName: "menus",
-      freezeTableName: true,
-      underscored: true,
-      timestamps: false,
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-  );
+    image: {
+      type: DataTypes.STRING(64),
+      allowNull: false,
+    },
+    category_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  }, {
+    sequelize,
+    modelName: 'menus',
+    underscored: true,
+    freezeTableName: true,
+    timestamps: false,
+  });
   return menus;
 };

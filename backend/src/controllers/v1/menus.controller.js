@@ -4,8 +4,7 @@ const asyncWrapper = require("../../middlewares/asyncWrapper");
 const getAll = asyncWrapper(async (req, res) => {
 	const data = await models.menus.findAll({
 		order: [["name", "ASC"]],
-		attributes: ["id", "name", "price", "image", "status"],
-		include: models.category,
+		include: models.categories,
 	});
 	res.status(200).json(data);
 });

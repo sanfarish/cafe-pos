@@ -3,19 +3,19 @@ const asyncWrapper = require("../../middlewares/asyncWrapper");
 
 const getAll = asyncWrapper(async (req, res) => {
 	const draft = await models.orders.findAll({
-		attributes: ["id", "bill", "created_at"],
 		include: {
 			model: models.payments,
-			attributes: ["id"],
 		},
 	});
 	const data = await Promise.all(
 		draft.map(async (e) => {
 			const obj = e.toJSON();
 			const draft = await models.carts.findAll({
-				attributes: ["menu_id", "quantity"],
 				where: {
 					order_id: e.id,
+				},
+				include: {
+					model: models.menus,
 				},
 			});
 			const carts = draft.map((e) => {

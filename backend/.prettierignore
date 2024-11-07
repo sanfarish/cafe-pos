@@ -2,8 +2,12 @@
 **/node_modules
 **/tests
 **/src/config
-**/src/migrations
+**/src/db
+**/src/docs
 **/src/models
-**/src/seeders
 .env
+.sequelizerc
+eslint.config.mjs
 jest.config.js
+package-lock.json
+package.json

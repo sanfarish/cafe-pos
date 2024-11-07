@@ -2,12 +2,12 @@ const models = require("../../models");
 const asyncWrapper = require("../../middlewares/asyncWrapper");
 
 const getAll = asyncWrapper(async (req, res) => {
-	const data = await models.category.findAll();
+	const data = await models.categories.findAll();
 	res.status(200).json(data);
 });
 
 const create = asyncWrapper(async (req, res) => {
-	const data = await models.category.create({
+	const data = await models.categories.create({
 		id: crypto.randomUUID(),
 		name: req.body.name,
 	});
@@ -18,7 +18,7 @@ const create = asyncWrapper(async (req, res) => {
 });
 
 const remove = asyncWrapper(async (req, res) => {
-	await models.category.destroy({
+	await models.categories.destroy({
 		where: {
 			id: req.params.id,
 		},
@@ -27,7 +27,7 @@ const remove = asyncWrapper(async (req, res) => {
 });
 
 const update = asyncWrapper(async (req, res) => {
-	await models.category.update(
+	await models.categories.update(
 		{
 			name: req.body.name,
 		},
@@ -37,7 +37,7 @@ const update = asyncWrapper(async (req, res) => {
 			},
 		},
 	);
-	const data = await models.category.findByPk(req.params.id);
+	const data = await models.categories.findByPk(req.params.id);
 	res.status(200).json({
 		status: "success",
 		data,

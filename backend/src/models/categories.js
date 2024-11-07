@@ -3,25 +3,21 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class payments extends Model {
+  class categories extends Model {
     static associate(models) {
     }
   }
-  payments.init({
+  categories.init({
     name: {
       type: DataTypes.STRING(64),
       allowNull: false,
-    },
-    account: {
-      type: DataTypes.STRING(64),
-      allowNull: true
-    },
+    }
   }, {
     sequelize,
-    modelName: 'payments',
+    modelName: 'categories',
     underscored: true,
     freezeTableName: true,
     timestamps: false,
   });
-  return payments;
+  return categories;
 };
