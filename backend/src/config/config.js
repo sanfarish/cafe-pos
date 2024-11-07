@@ -8,11 +8,11 @@ module.exports = {
     "logging": false,
   },
   "test": {
-    "username": process.env.CI_DB_USERNAME,
-    "password": process.env.CI_DB_PASSWORD,
-    "database": process.env.CI_DB_NAME,
-    "host": process.env.CI_DB_HOSTNAME,
-    "dialect": process.env.CI_DB_DIALECT,
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
     "logging": false,
   },
   "production": {
