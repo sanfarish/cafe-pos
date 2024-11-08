@@ -10,8 +10,8 @@ function Menu() {
   useEffect(() => {
 
     async function fetchMenus() {
-      const data = await menu.getAll()
-      setMenus(data)
+      const res = await menu.getAll()
+      setMenus(res.data)
     }
 
     fetchMenus()

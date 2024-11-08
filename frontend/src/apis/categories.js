@@ -6,10 +6,10 @@ async function getAll() {
         console.error("no link to fetch (.env)")
         return { res: { data: [] } }
     }
-    const res = await axios.get(url + "/menus")
+    const res = await axios.get(url + "/categories")
     return res
 }
 
-const menu = { getAll }
+const categories = { getAll }
 
-export default menu
+export default categories

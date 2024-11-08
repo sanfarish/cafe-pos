@@ -1,7 +1,5 @@
-import { getAll } from "./menus"
+import category from "./categories"
+import menu from "./menus"
+import payment from "./payments"
 
-const menu = {
-    getAll
-}
-
-export { menu }
+export { menu, category, payment }

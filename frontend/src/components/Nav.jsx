@@ -1,8 +1,26 @@
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material"
+import { useEffect, useState } from "react"
+import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Toolbar } from "@mui/material"
+import { category } from '../apis'
+import PropTypes from "prop-types"
 
 function Nav() {
 
-  const category = [ "Meals", "Snacks", "Coffee", "Non-Coffee" ]
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+
+    async function fetchCategories() {
+      const res = await category.getAll()
+      setCategories(res.data)
+    }
+
+    fetchCategories()
+  }, [])
+
+  function Icon({ icon }) {
+    return <SvgIcon><i className={icon}></i></SvgIcon>
+  }
+  Icon.propTypes = { icon: PropTypes.string.isRequired }
 
   return (
     <Drawer
@@ -15,30 +33,36 @@ function Nav() {
     >
       <Toolbar />
       <List>
-        {category && category.map(item => {
+        {categories && categories.map(item => {
+          function icon() {
+            switch (item.name) {
+              case "Meals":
+                return <Icon icon="fa-solid fa-bowl-rice" />
+              case "Snacks":
+                return <Icon icon="fa-solid fa-burger" />
+              case "Desserts":
+                return <Icon icon="fa-solid fa-ice-cream" />
+              case "Coffee":
+                return <Icon icon="fa-solid fa-mug-saucer" />
+              case "Non-Coffee":
+                return <Icon icon="fa-solid fa-whiskey-glass" />
+              case "Tea":
+                return <Icon icon="fa-solid fa-glass-water" />
+              default:
+                return <></>
+            }
+          }
           return (
-            <ListItem key={category.indexOf(item)} disablePadding>
+            <ListItem key={categories.indexOf(item)} disablePadding>
               <ListItemButton>
-                <ListItemIcon>ICO</ListItemIcon>
-              <ListItemText primary={item} />
+                <ListItemIcon>{icon()}</ListItemIcon>
+              <ListItemText primary={item.name} />
               </ListItemButton>
             </ListItem>
           )
         })}
       </List>
       <Divider />
-      <List>
-        {category && category.map(item => {
-          return (
-            <ListItem key={category.indexOf(item)} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>ICO</ListItemIcon>
-              <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
-          )
-        })}
-      </List>
     </Drawer>
   )
 }
