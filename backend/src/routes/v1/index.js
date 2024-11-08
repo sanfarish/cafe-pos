@@ -8,7 +8,7 @@ const payments = require("./payments.route");
 const menus = require("./menus.route");
 const orders = require("./orders.route");
 
-router.use("/images", express.static('public'));
+router.use("/images", express.static('public/images'));
 router.use("/categories", categories);
 router.use("/payments", payments);
 router.use("/menus", menus);

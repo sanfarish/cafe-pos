@@ -2,9 +2,13 @@ const models = require("../../models");
 const asyncWrapper = require("../../middlewares/asyncWrapper");
 
 const getAll = asyncWrapper(async (req, res) => {
-	const data = await models.menus.findAll({
-		order: [["name", "ASC"]],
+	const draft = await models.menus.findAll({
+		order: [[ "category_id", "ASC" ], [ "name", "ASC" ]],
 		include: models.categories,
+	});
+	const data = draft.map(item => {
+		item.image = process.env.IMAGE_URL + item.image;
+		return item;
 	});
 	res.status(200).json(data);
 });
