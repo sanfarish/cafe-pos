@@ -11,6 +11,6 @@ describe('not found routes test', () => {
 
 		const res = await request(app).get('/anything');
 		expect(res.statusCode).toBe(404);
-		expect(res.text).toBe("not found")
+		expect(res.type).toBe("text/html");
 	});
 });
