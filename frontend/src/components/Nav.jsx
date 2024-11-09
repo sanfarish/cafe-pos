@@ -26,9 +26,8 @@ function Nav() {
     <Drawer
       variant='permanent'
       sx={{
-        width: 200,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: 200, boxSizing: 'border-box' },
+        width: 175,
+        [`& .MuiDrawer-paper`]: { width: 175, boxSizing: 'border-box' },
       }}
     >
       <Toolbar />
@@ -56,7 +55,7 @@ function Nav() {
             <ListItem key={categories.indexOf(item)} disablePadding>
               <ListItemButton>
                 <ListItemIcon>{icon()}</ListItemIcon>
-              <ListItemText primary={item.name} />
+                <ListItemText primary={item.name} />
               </ListItemButton>
             </ListItem>
           )

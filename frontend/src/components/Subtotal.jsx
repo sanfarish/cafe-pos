@@ -30,6 +30,9 @@ function Subtotal() {
         <ListItem>
           <ListItemText primary="Tax" />
         </ListItem>
+        <ListItem>
+          <ListItemText primary="Total" />
+        </ListItem>
       </List>
       <Box sx={{ p: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
         <FormControl fullWidth>

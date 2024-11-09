@@ -6,21 +6,24 @@ import Subtotal from './Subtotal'
 
 function Main() {
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+    <Box component="main" sx={{ p: 3 }}>
       <Toolbar />
-      <Grid container spacing={2}>
-        <Grid size={8}>
+      <Grid container spacing={2} sx={{ height: "calc(100% - 40px - 20px)" }}>
+        <Grid size={8} sx={{ height: "100%" }}>
           <Menu />
         </Grid>
-        <Grid size={4}>
-          <Grid container spacing={2}>
-            <Grid size={12}>
-              <Orders />
-            </Grid>
-            <Grid size={12}>
-              <Subtotal />
-            </Grid>
-          </Grid>
+        <Grid
+          size={4}
+          sx={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            gap: 2
+          }}
+        >
+          <Orders />
+          <Subtotal />
         </Grid>
       </Grid>
     </Box>

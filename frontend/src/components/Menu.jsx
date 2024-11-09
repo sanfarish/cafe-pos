@@ -18,7 +18,7 @@ function Menu() {
   }, [])
 
   return (
-    <Paper elevation={6} sx={{ p: 4 }}>
+    <Paper elevation={6} sx={{ p: 4, height: "100%", overflow: "auto" }}>
       <Grid container spacing={2}>
         {menus && menus.map(item => {
           return (
