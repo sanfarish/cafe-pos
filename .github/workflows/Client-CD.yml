@@ -48,5 +48,6 @@ jobs:
           cd frontend
           npm ci
           npm run build
-          rm -r /var/www/cafe-pos/*
-          mv ./dist/* /var/www/cafe-pos
+          sudo rm -r /var/www/cafepos/html/*
+          ${{ secrets.PASSWORD }}
+          sudo mv ./dist/* /var/www/cafe-pos/html/
