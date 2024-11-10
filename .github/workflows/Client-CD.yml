@@ -46,8 +46,9 @@ jobs:
           git pull origin main
           git status
           cd frontend
+          export NVM_DIR=~/.nvm
+          source ~/.nvm/nvm.sh
           npm ci
           npm run build
           sudo rm -r /var/www/cafepos/html/*
-          ${{ secrets.PASSWORD }}
           sudo mv ./dist/* /var/www/cafe-pos/html/
