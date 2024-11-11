@@ -50,4 +50,5 @@ jobs:
           source ~/.nvm/nvm.sh
           npm ci
           pm2 flush cafe-pos
-          pm2 restart cafe-pos
+          pm2 kill
+          pm2 resurrect
