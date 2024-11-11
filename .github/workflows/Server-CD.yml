@@ -49,4 +49,5 @@ jobs:
           export NVM_DIR=~/.nvm
           source ~/.nvm/nvm.sh
           npm ci
+          pm2 flush cafe-pos
           pm2 restart cafe-pos

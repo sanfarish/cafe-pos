@@ -51,4 +51,4 @@ jobs:
           npm ci
           npm run build
           sudo rm -r /var/www/cafepos/html/*
-          sudo mv ./dist/* /var/www/cafe-pos/html/
+          sudo mv ./dist/* /var/www/cafepos/html/
