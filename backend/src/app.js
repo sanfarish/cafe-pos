@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const logger = require("morgan");
 
-const v1 = require("./routes/v1");
+const api = require("./routes");
 
 const notFound = require("./middlewares/notFoundHandler");
 const errors = require("./middlewares/errorsHandler");
@@ -13,8 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/favicon.ico", express.static("public/favicon.ico"));
-app.get([ "/api", "/api/v1" ], (req, res) => res.redirect(302, "/api/v1/docs"));
-app.use("/api/v1", v1);
+app.use("/api", api);
 
 app.use(errors);
 app.use("*", notFound);

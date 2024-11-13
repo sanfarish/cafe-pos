@@ -1,17 +1,13 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Server CD
+name: Frontend CI
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-concurrency:
-  group: cd
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -28,27 +24,12 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-        cache-dependency-path: backend/package-lock.json
+        cache-dependency-path: frontend/package-lock.json
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Install SSH Client
-      working-directory: backend
-      run: sudo apt-get install openssh-client -y
-    - name: Deploy using SSH
-      uses: appleboy/ssh-action@v1.1.0
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          cd cafe-pos
-          git pull origin main
-          git status
-          cd backend
-          export NVM_DIR=~/.nvm
-          source ~/.nvm/nvm.sh
-          npm ci
-          pm2 flush cafe-pos
-          pm2 kill
-          pm2 resurrect
+    - name: NPM CI
+      working-directory: frontend
+      run: npm ci
+    - name: NPM Tests
+      working-directory: frontend
+      run: npm test
