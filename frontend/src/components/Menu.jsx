@@ -2,38 +2,40 @@ import { useEffect, useState } from 'react'
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Paper, SvgIcon, TextField, Typography } from '@mui/material'
 import Grid from "@mui/material/Grid2"
 import PropTypes from 'prop-types'
-import { menu } from '../apis'
+import useAPI from '../hooks/useAPI'
+import { useData } from '../contexts/DataProvider'
+import { useOrder } from '../contexts/OrderContext'
 
-function Menu() {
+export default function Menu() {
 
-  const [menus, setMenus] = useState([])
-  const [carts, setCarts] = useState([
-    { id: 1, quantity: 1 },
-  ])
+  // eslint-disable-next-line no-unused-vars
+  const { response, error, loading } = useAPI({ method: "get", url: "/menus" })
+  const { menus, setMenus } = useData()
+  const { order, setOrder } = useOrder()
   const [focus, setFocus] = useState(false)
 
   useEffect(() => {
-
-    async function fetchMenus() {
-      const res = await menu.getAll()
-      setMenus(res.data)
+    if (response !== null) {
+      setMenus(response)
     }
-
-    fetchMenus()
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response])
 
   useEffect(() => {
     function dispose() {
-      if (carts.some(object => object.quantity < 1) && !focus) {
-        setCarts(prev => prev.filter(object => {
-          if (object.quantity >= 1) {
-            return object
-          }
-        }))
+      if (order.cart.some(object => object.quantity < 1) && !focus) {
+        setOrder(prev => {
+          return { ...prev, cart: prev.cart.filter(object => {
+            if (object.quantity >= 1) {
+              return object
+            }
+          })}
+        })
       }
     }
     dispose()
-  }, [carts, focus])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [order, focus])
 
   function Icon({ icon, fontSize, color }) {
     return <SvgIcon sx={{ fontSize, color }}><i className={icon}></i></SvgIcon>
@@ -45,32 +47,38 @@ function Menu() {
   }
 
   function handleAdd(item) {
-    setCarts(prev => [...prev, { id: item.id, quantity: 1 }])
+    setOrder(prev => {
+      return { ...prev, cart: [...prev.cart, { id: item.id, quantity: 1 }]}
+    })
   }
 
   function handleButton(item, mode) {
-    setCarts(prev => prev.map(object => {
-      if (object.id === item.id) {
-        switch (mode) {
-          case "add":
-            return { ...object, quantity: Number(object.quantity) + 1 }
-          case "remove":
-            return { ...object, quantity: Number(object.quantity) - 1 }
-          default:
-            break
+    setOrder(prev => {
+      return { ...prev, cart: prev.cart.map(object => {
+        if (object.id === item.id) {
+          switch (mode) {
+            case "add":
+              return { ...object, quantity: Number(object.quantity) + 1 }
+            case "remove":
+              return { ...object, quantity: Number(object.quantity) - 1 }
+            default:
+              break
+          }
         }
-      }
-      return object
-    }))
+        return object
+      })}
+    })
   }
 
   function handleChange(item, quantity) {
-    setCarts(prev => prev.map(object => {
-      if (object.id === item.id && /./.test(quantity)) {
-        return { ...object, quantity: parseInt(quantity) }
-      }
-      return object
-    }))
+    setOrder(prev => {
+      return { ...prev, cart: prev.cart.map(object => {
+        if (object.id === item.id && /./.test(quantity)) {
+          return { ...object, quantity: parseInt(quantity) }
+        }
+        return object
+      })}
+    })
   }
 
   return (
@@ -93,14 +101,12 @@ function Menu() {
                   title={item.name}
                   alt={item.name}
                 />
-                <CardContent sx={{ p: 1 }}>
-                  <Typography variant='h5'>{item.name}</Typography>
+                <CardContent sx={{ p: 1, textAlign: "center" }}>
+                  <Typography variant='h5' mt={1} mb={1} height={60}>{item.name}</Typography>
                   <Typography variant='h6'>Rp {item.price.toLocaleString()},00</Typography>
                 </CardContent>
                 <CardActions>
-                {!carts.some(e => e.id === item.id) ? <Button variant='contained' size='medium'
-                  onClick={() => handleAdd(item)}
-                >Add</Button> : <Box display="flex" alignItems="center" gap={1}>
+                {order.cart.some(e => e.id === item.id) ? <Box display="flex" alignItems="center" gap={1}>
 
                   <Button variant="contained" size='small'
                     sx={{ minWidth: "30px", pl: 0, pr: 0 }}
@@ -112,7 +118,7 @@ function Menu() {
                   <TextField variant="outlined" size='small' type='number'
                     slotProps={{ htmlInput: { min: 0, style: { textAlign: "center" } } }}
                     sx={{ width: "50px" }}
-                    value={carts.find(e => e.id === item.id).quantity}
+                    value={order.cart.find(e => e.id === item.id).quantity}
                     onChange={e => handleChange(item, e.target.value)}
                     onFocus={(e) => {e.target.select(); setFocus(true)}}
                     onBlur={() => setFocus(false)}
@@ -124,7 +130,10 @@ function Menu() {
                   >
                     <Icon icon="fa-solid fa-plus" />
                   </Button>
-                </Box>}
+                </Box> : <Button variant='contained' size='medium'
+                sx={{ mb: 0.5 }}
+                  onClick={() => handleAdd(item)}
+                >Add</Button>}
                 </CardActions>
               </Card>
             </Grid>
@@ -137,5 +146,3 @@ function Menu() {
     </Paper>
   )
 }
-
-export default Menu

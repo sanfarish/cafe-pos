@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Toolbar, Typography } from "@mui/material"
 import PropTypes from "prop-types"
-import { category } from '../apis'
+import useAPI from "../hooks/useAPI"
+import { useData } from "../contexts/DataProvider"
 
-function Nav() {
+export default function Nav() {
 
-  const [categories, setCategories] = useState([])
+  // eslint-disable-next-line no-unused-vars
+  const { response, error, loading } = useAPI({ method: "get", url: "/categories" })
+  const { categories, setCategories } = useData()
 
   useEffect(() => {
-
-    async function fetchCategories() {
-      const res = await category.getAll()
-      setCategories(res.data)
+    if (response !== null) {
+      setCategories(response)
     }
-
-    fetchCategories()
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response])
 
   function Icon({ icon, fontSize, color }) {
     return <SvgIcon sx={{ fontSize, color }} ><i className={icon}></i></SvgIcon>
@@ -72,5 +72,3 @@ function Nav() {
     </Drawer>
   )
 }
-
-export default Nav

@@ -1,21 +1,21 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { Button, FormControl, InputLabel, List, ListItem, ListItemText, MenuItem, Paper, Select, TextField, Typography } from '@mui/material'
-import { payment } from '../apis'
+import useAPI from '../hooks/useAPI'
+import { useData } from '../contexts/DataProvider'
 
-function Subtotal() {
+export default function Subtotal() {
 
-  const [payments, setPayments] = React.useState([])
-  const [input, setInput] = React.useState("")
+  // eslint-disable-next-line no-unused-vars
+  const { response, error, loading } = useAPI({ method: "get", url: "/payments" })
+  const { payments, setPayments } = useData()
+  const [input, setInput] = useState("")
 
-  React.useEffect(() => {
-
-    async function fetchPayments() {
-      const res = await payment.getAll()
-      setPayments(res.data)
+  useEffect(() => {
+    if (response !== null) {
+      setPayments(response)
     }
-
-    fetchPayments()
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response])
 
   function handleChange(e) {
     setInput(e.target.value)
@@ -23,23 +23,29 @@ function Subtotal() {
   
   return (
     <Paper elevation={6} sx={{ p: 2 }}>
+
       <List disablePadding>
+
         <ListItem disablePadding>
           <ListItemText primary="Subtotal" />
           <Typography>Rp xxx.xxx,xx</Typography>
         </ListItem>
+
         <ListItem disablePadding>
           <ListItemText primary="Tax" />
           <Typography>(10%) Rp xxx.xxx,xx</Typography>
         </ListItem>
+        
         <ListItem disablePadding>
           <ListItemText primary="Total" />
           <Typography>Rp xxx.xxx,xx</Typography>
         </ListItem>
       </List>
+
       <TextField variant="outlined" size='medium' label="Name" fullWidth
         sx={{ mt: 1, mb: 1 }}
       />
+
       <FormControl fullWidth sx={{ mb: 1 }}>
         <InputLabel id="payment">Payment</InputLabel>
         <Select
@@ -53,9 +59,8 @@ function Subtotal() {
           })}
         </Select>
       </FormControl>
+
       <Button variant='contained' size='large' fullWidth>Pay</Button>
     </Paper>
   )
 }
-
-export default Subtotal
