@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Toolbar } from "@mui/material"
-import { category } from '../apis'
 import PropTypes from "prop-types"
+import { category } from '../apis'
 
 function Nav() {
 
