@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-// import PropTypes from "prop-types"
+import PropTypes from "prop-types"
 
 const DataContext = createContext()
 
@@ -10,14 +10,13 @@ export function useData() {
     return context
 }
 
-// eslint-disable-next-line react/prop-types
 export function DataProvider({ children }) {
 
     const [categories, setCategories] = useState([])
     const [menus, setMenus] = useState([])
     const [payments, setPayments] = useState([])
 
-    // DataProvider.propTypes = { children: PropTypes.string }
+    DataProvider.propTypes = { children: PropTypes.any }
     
     return (
         <DataContext.Provider

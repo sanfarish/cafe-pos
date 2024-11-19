@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Box, Button, List, ListItem, ListItemText, Paper, SvgIcon, TextField, Typography } from '@mui/material'
 import PropTypes from "prop-types"
 import { useData } from '../contexts/DataProvider'
@@ -7,22 +7,21 @@ import { useOrder } from '../contexts/OrderContext'
 function Orders() {
 
   const { menus } = useData()
-  const { order, setOrder } = useOrder()
-  const [focus, setFocus] = useState(false)
+  const { order, setOrder, focus, setFocus } = useOrder()
 
   useEffect(() => {
-    function dispose() {
+    function removeByFocus() {
       if (order.cart.some(object => object.quantity < 1) && !focus) {
         setOrder(prev => {
           return { ...prev, cart: prev.cart.filter(object => {
             if (object.quantity >= 1) {
               return object
             }
-          }) }
+          })}
         })
       }
     }
-    dispose()
+    removeByFocus()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, focus])
 
@@ -37,7 +36,7 @@ function Orders() {
 
   function handleButton(item, mode) {
     setOrder(prev => {
-      return { ...prev, cart: prev.cart.map(object => {
+      let cart = prev.cart.map(object => {
         if (object.id === item.id) {
           switch (mode) {
             case "add":
@@ -49,7 +48,11 @@ function Orders() {
           }
         }
         return object
-      }) }
+      })
+      if (cart.some(object => object.quantity < 1)) {
+        cart = cart.filter(object => object.quantity >= 1 && object)
+      }
+      return { ...prev, cart }
     })
   }
   
@@ -85,7 +88,10 @@ function Orders() {
                 sx={{ width: "50px" }}
                 value={item.quantity}
                 onChange={e => handleChange(item, e.target.value)}
-                onFocus={(e) => {e.target.select(); setFocus(true)}}
+                onFocus={(e) => {
+                  e.target.select()
+                  setFocus(true)
+                }}
                 onBlur={() => setFocus(false)}
               />
 

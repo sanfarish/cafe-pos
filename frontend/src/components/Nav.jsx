@@ -3,12 +3,20 @@ import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, Lis
 import PropTypes from "prop-types"
 import useAPI from "../hooks/useAPI"
 import { useData } from "../contexts/DataProvider"
+import { useOrder } from "../contexts/OrderContext"
 
 export default function Nav() {
 
   // eslint-disable-next-line no-unused-vars
   const { response, error, loading } = useAPI({ method: "get", url: "/categories" })
   const { categories, setCategories } = useData()
+  const { activeCategory, setActiveCategory } = useOrder()
+
+  useEffect(() => {
+    if (categories.length >= 1 && activeCategory === null) {
+      setActiveCategory(categories[0].id)
+    }
+  }, [categories])
 
   useEffect(() => {
     if (response !== null) {
@@ -57,7 +65,11 @@ export default function Nav() {
           }
           return (
             <ListItem key={categories.indexOf(item)} disablePadding>
-              <ListItemButton sx={{ pt: 2, pb: 2 }}>
+              <ListItemButton
+                sx={{ pt: 2, pb: 2 }}
+                onClick={() => setActiveCategory(item.id)}
+                selected={activeCategory === item.id}
+              >
                 <ListItemIcon>{icon()}</ListItemIcon>
                 <ListItemText primary={item.name} />
               </ListItemButton>

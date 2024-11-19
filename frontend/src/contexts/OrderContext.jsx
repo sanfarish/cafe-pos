@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-// import PropTypes from "prop-types"
+import PropTypes from "prop-types"
 
 const OrderContext = createContext()
 
@@ -10,22 +10,27 @@ export function useOrder() {
     return context
 }
 
-// eslint-disable-next-line react/prop-types
 export function OrderProvider({ children }) {
 
+    const [activeCategory, setActiveCategory] = useState(null)
     const [order, setOrder] = useState({
         name: "",
         payment: null,
         cart: []
     })
+    const [focus, setFocus] = useState(false)
 
-    // OrderProvider.propTypes = { children: PropTypes.string }
+    OrderProvider.propTypes = { children: PropTypes.any }
     
     return (
         <OrderContext.Provider
             value={{
+                activeCategory,
+                setActiveCategory,
                 order,
-                setOrder
+                setOrder,
+                focus,
+                setFocus,
             }}
         >
             {children}

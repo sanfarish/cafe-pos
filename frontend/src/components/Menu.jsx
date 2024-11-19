@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Paper, SvgIcon, TextField, Typography } from '@mui/material'
 import Grid from "@mui/material/Grid2"
 import PropTypes from 'prop-types'
@@ -11,8 +11,7 @@ export default function Menu() {
   // eslint-disable-next-line no-unused-vars
   const { response, error, loading } = useAPI({ method: "get", url: "/menus" })
   const { menus, setMenus } = useData()
-  const { order, setOrder } = useOrder()
-  const [focus, setFocus] = useState(false)
+  const { activeCategory, order, setOrder, focus, setFocus } = useOrder()
 
   useEffect(() => {
     if (response !== null) {
@@ -22,7 +21,7 @@ export default function Menu() {
   }, [response])
 
   useEffect(() => {
-    function dispose() {
+    function removeByFocus() {
       if (order.cart.some(object => object.quantity < 1) && !focus) {
         setOrder(prev => {
           return { ...prev, cart: prev.cart.filter(object => {
@@ -33,7 +32,7 @@ export default function Menu() {
         })
       }
     }
-    dispose()
+    removeByFocus()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [order, focus])
 
@@ -54,7 +53,7 @@ export default function Menu() {
 
   function handleButton(item, mode) {
     setOrder(prev => {
-      return { ...prev, cart: prev.cart.map(object => {
+      let cart = prev.cart.map(object => {
         if (object.id === item.id) {
           switch (mode) {
             case "add":
@@ -66,7 +65,11 @@ export default function Menu() {
           }
         }
         return object
-      })}
+      })
+      if (cart.some(object => object.quantity < 1)) {
+        cart = cart.filter(object => object.quantity >= 1 && object)
+      }
+      return { ...prev, cart }
     })
   }
 
@@ -89,55 +92,60 @@ export default function Menu() {
         overflow: "auto",
       }}
     >
-      { menus.length >= 1 ? <Grid container spacing={2}>
+      { menus.length >= 1 && activeCategory !== null ? <Grid container spacing={2}>
         {menus.map(item => {
-          return (
-            <Grid size={3} key={menus.indexOf(item)}>
-              <Card elevation={4} sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <CardMedia
-                  component="img"
-                  sx={{ width: "100%", maxHeight: 178 }}
-                  image={item.image}
-                  title={item.name}
-                  alt={item.name}
-                />
-                <CardContent sx={{ p: 1, textAlign: "center" }}>
-                  <Typography variant='h5' mt={1} mb={1} height={60}>{item.name}</Typography>
-                  <Typography variant='h6'>Rp {item.price.toLocaleString()},00</Typography>
-                </CardContent>
-                <CardActions>
-                {order.cart.some(e => e.id === item.id) ? <Box display="flex" alignItems="center" gap={1}>
-
-                  <Button variant="contained" size='small'
-                    sx={{ minWidth: "30px", pl: 0, pr: 0 }}
-                    onClick={() => handleButton(item, "remove")}
-                  >
-                    <Icon icon="fa-solid fa-minus" />
-                  </Button>
-
-                  <TextField variant="outlined" size='small' type='number'
-                    slotProps={{ htmlInput: { min: 0, style: { textAlign: "center" } } }}
-                    sx={{ width: "50px" }}
-                    value={order.cart.find(e => e.id === item.id).quantity}
-                    onChange={e => handleChange(item, e.target.value)}
-                    onFocus={(e) => {e.target.select(); setFocus(true)}}
-                    onBlur={() => setFocus(false)}
+          if (item.category_id === activeCategory) {
+            return (
+              <Grid size={3} key={menus.indexOf(item)}>
+                <Card elevation={4} sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                  <CardMedia
+                    component="img"
+                    sx={{ width: "100%", maxHeight: 178 }}
+                    image={item.image}
+                    title={item.name}
+                    alt={item.name}
                   />
+                  <CardContent sx={{ p: 1, textAlign: "center" }}>
+                    <Typography variant='h5' mt={1} mb={1} height={60}>{item.name}</Typography>
+                    <Typography variant='h6'>Rp {item.price.toLocaleString()},00</Typography>
+                  </CardContent>
+                  <CardActions>
+                  {order.cart.some(e => e.id === item.id) ? <Box display="flex" alignItems="center" gap={1}>
 
-                  <Button variant="contained" size='small'
-                    sx={{ minWidth: "30px", pl: 0, pr: 0 }}
-                    onClick={() => handleButton(item, "add")}
-                  >
-                    <Icon icon="fa-solid fa-plus" />
-                  </Button>
-                </Box> : <Button variant='contained' size='medium'
-                sx={{ mb: 0.5 }}
-                  onClick={() => handleAdd(item)}
-                >Add</Button>}
-                </CardActions>
-              </Card>
-            </Grid>
-          )
+                    <Button variant="contained" size='small'
+                      sx={{ minWidth: "30px", pl: 0, pr: 0 }}
+                      onClick={() => handleButton(item, "remove")}
+                    >
+                      <Icon icon="fa-solid fa-minus" />
+                    </Button>
+
+                    <TextField variant="outlined" size='small' type='number'
+                      slotProps={{ htmlInput: { min: 0, style: { textAlign: "center" } } }}
+                      sx={{ width: "50px" }}
+                      value={order.cart.find(e => e.id === item.id).quantity}
+                      onChange={e => handleChange(item, e.target.value)}
+                      onFocus={(e) => {
+                        e.target.select()
+                        setFocus(true)
+                      }}
+                      onBlur={() => setFocus(false)}
+                    />
+
+                    <Button variant="contained" size='small'
+                      sx={{ minWidth: "30px", pl: 0, pr: 0 }}
+                      onClick={() => handleButton(item, "add")}
+                    >
+                      <Icon icon="fa-solid fa-plus" />
+                    </Button>
+                  </Box> : <Button variant='contained' size='medium'
+                  sx={{ mb: 0.5 }}
+                    onClick={() => handleAdd(item)}
+                  >Add</Button>}
+                  </CardActions>
+                </Card>
+              </Grid>
+            )
+          }
         })}
       </Grid> : <Box textAlign="center" mt={2}>
         <Icon icon="fa-solid fa-box-open" fontSize={80} color="gray"/>
