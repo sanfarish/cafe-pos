@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Button, List, ListItem, ListItemText, Paper, SvgIcon, TextField } from '@mui/material'
+import { Box, Button, List, ListItem, ListItemText, Paper, SvgIcon, TextField, Typography } from '@mui/material'
 import PropTypes from "prop-types"
-import "../css/orders.css"
 
 function Orders() {
 
@@ -32,9 +31,9 @@ function Orders() {
 
   useEffect(() => {
     function dispose() {
-      if (carts.find(object => object.quantity < 1) && !focus) {
+      if (carts.some(object => object.quantity < 1) && !focus) {
         setCarts(prev => prev.filter(object => {
-          if (object.quantity > 1) {
+          if (object.quantity >= 1) {
             return object
           }
         }))
@@ -43,13 +42,16 @@ function Orders() {
     dispose()
   }, [carts, focus])
 
-  function Icon({ icon }) {
-    return <SvgIcon><i className={icon}></i></SvgIcon>
+  function Icon({ icon, fontSize, color }) {
+    return <SvgIcon sx={{ fontSize, color }} ><i className={icon}></i></SvgIcon>
   }
-  Icon.propTypes = { icon: PropTypes.string.isRequired }
+  Icon.propTypes = {
+    icon: PropTypes.string.isRequired,
+    fontSize: PropTypes.number,
+    color: PropTypes.string,
+  }
 
   function handleButton(item, mode) {
-    
     setCarts(prev => prev.map(object => {
       if (object.id === item.id) {
         switch (mode) {
@@ -76,11 +78,8 @@ function Orders() {
 
   return (
     <Paper elevation={6} sx={{ height: "100%", overflow: "auto" }}>
-      {carts.length !== 0 ? <List>
+      {carts.length >= 1 ? <List>
         {carts.map(item => {
-          if (item.quantity < 1 && focus === false) {
-            return null
-          }
           return (
             <ListItem key={carts.indexOf(item)} sx={{ gap: 1 }}>
 
@@ -98,7 +97,7 @@ function Orders() {
                 sx={{ width: "50px" }}
                 value={item.quantity}
                 onChange={e => handleChange(item, e.target.value)}
-                onFocus={() => setFocus(true)}
+                onFocus={(e) => {e.target.select(); setFocus(true)}}
                 onBlur={() => setFocus(false)}
               />
 
@@ -112,7 +111,10 @@ function Orders() {
             </ListItem>
           )
         })}
-      </List> : <></>}
+      </List> : <Box textAlign="center" mt={2}>
+        <Icon icon="fa-solid fa-box-open" fontSize={40} color="gray" />
+        <Typography color='gray'>No Orders Available</Typography>
+      </Box>}
     </Paper>
   )
 }

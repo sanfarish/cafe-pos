@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Toolbar } from "@mui/material"
+import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Toolbar, Typography } from "@mui/material"
 import PropTypes from "prop-types"
 import { category } from '../apis'
 
@@ -17,10 +17,14 @@ function Nav() {
     fetchCategories()
   }, [])
 
-  function Icon({ icon }) {
-    return <SvgIcon><i className={icon}></i></SvgIcon>
+  function Icon({ icon, fontSize, color }) {
+    return <SvgIcon sx={{ fontSize, color }} ><i className={icon}></i></SvgIcon>
   }
-  Icon.propTypes = { icon: PropTypes.string.isRequired }
+  Icon.propTypes = {
+    icon: PropTypes.string.isRequired,
+    fontSize: PropTypes.number,
+    color: PropTypes.string,
+  }
 
   return (
     <Drawer
@@ -31,8 +35,8 @@ function Nav() {
       }}
     >
       <Toolbar />
-      <List>
-        {categories && categories.map(item => {
+      {categories.length >= 1 ? <List>
+        {categories.map(item => {
           function icon() {
             switch (item.name) {
               case "Meals":
@@ -53,14 +57,17 @@ function Nav() {
           }
           return (
             <ListItem key={categories.indexOf(item)} disablePadding>
-              <ListItemButton>
+              <ListItemButton sx={{ pt: 2, pb: 2 }}>
                 <ListItemIcon>{icon()}</ListItemIcon>
                 <ListItemText primary={item.name} />
               </ListItemButton>
             </ListItem>
           )
         })}
-      </List>
+      </List> : <Box textAlign="center" mt={2} mb={2}>
+        <Icon icon="fa-solid fa-box-open" fontSize={40} color="gray" />
+        <Typography color='gray'>No Category Available</Typography>
+      </Box>}
       <Divider />
     </Drawer>
   )

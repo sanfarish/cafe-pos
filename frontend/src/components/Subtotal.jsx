@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Button, FormControl, InputLabel, List, ListItem, ListItemText, MenuItem, Paper, Select } from '@mui/material'
+import { Button, FormControl, InputLabel, List, ListItem, ListItemText, MenuItem, Paper, Select, TextField, Typography } from '@mui/material'
 import { payment } from '../apis'
 
 function Subtotal() {
@@ -22,35 +22,38 @@ function Subtotal() {
   }
   
   return (
-    <Paper elevation={6}>
-      <List>
-        <ListItem>
+    <Paper elevation={6} sx={{ p: 2 }}>
+      <List disablePadding>
+        <ListItem disablePadding>
           <ListItemText primary="Subtotal" />
+          <Typography>Rp xxx.xxx,xx</Typography>
         </ListItem>
-        <ListItem>
+        <ListItem disablePadding>
           <ListItemText primary="Tax" />
+          <Typography>(10%) Rp xxx.xxx,xx</Typography>
         </ListItem>
-        <ListItem>
+        <ListItem disablePadding>
           <ListItemText primary="Total" />
+          <Typography>Rp xxx.xxx,xx</Typography>
         </ListItem>
       </List>
-      <Box sx={{ p: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <FormControl fullWidth>
-          <InputLabel id="payment">Payment</InputLabel>
-          <Select
-            labelId="payment"
-            // id="payment-select"
-            value={input}
-            label="Payment"
-            onChange={handleChange}
-          >
-            {payments && payments.map(item => {
-              return <MenuItem key={payments.indexOf(item)} value={item.id}>{item.name}</MenuItem>
-            })}
-          </Select>
-        </FormControl>
-        <Button sx={{ m:1, width: "100%" }} variant='contained' size='medium'>Pay</Button>
-      </Box>
+      <TextField variant="outlined" size='medium' label="Name" fullWidth
+        sx={{ mt: 1, mb: 1 }}
+      />
+      <FormControl fullWidth sx={{ mb: 1 }}>
+        <InputLabel id="payment">Payment</InputLabel>
+        <Select
+          labelId="payment"
+          value={input}
+          label="Payment"
+          onChange={handleChange}
+        >
+          {payments && payments.map(item => {
+            return <MenuItem key={payments.indexOf(item)} value={item.id}>{item.name}</MenuItem>
+          })}
+        </Select>
+      </FormControl>
+      <Button variant='contained' size='large' fullWidth>Pay</Button>
     </Paper>
   )
 }

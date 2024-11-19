@@ -8,7 +8,12 @@ function Main() {
   return (
     <Box component="main" sx={{ p: 3 }}>
       <Toolbar />
-      <Grid container spacing={2} sx={{ height: "calc(100% - 40px - 20px)" }}>
+      <Grid container spacing={2}
+        sx={{
+          height: "calc(100% - 40px - 20px)",
+          width: "calc(100vw - 223px)",
+        }}
+      >
         <Grid size={8} sx={{ height: "100%" }}>
           <Menu />
         </Grid>

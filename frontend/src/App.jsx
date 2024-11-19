@@ -6,7 +6,7 @@ import Main from './components/Main'
 function App() {
   
   return (
-    <Box sx={{ height: "100vh", display: "flex" }}>
+    <Box sx={{ height: "100vh", width: "100vw", display: "flex" }}>
       <Header />
       <Nav />
       <Main />

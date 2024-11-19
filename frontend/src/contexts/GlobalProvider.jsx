@@ -15,7 +15,7 @@ function GlobalProvider(props) {
         ],
     })
 
-    GlobalProvider.propTypes = { children: PropTypes.string.isRequired }
+    GlobalProvider.propTypes = { children: PropTypes.string }
     
     return (
         <GlobalContext.Provider
