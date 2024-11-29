@@ -1,4 +1,4 @@
-# Cafe POS app [WIP]
+# Cafe POS app
 - Link to deployed frontend: https://cafepos.farishasan.web.id
 - Link to deployed backend: https://cafepos.farishasan.web.id/api/v1/docs (documentation)
 - My other projects: https://farishasan.web.id
@@ -17,3 +17,5 @@
 - Ubuntu 20.04
 - Nginx
 - GitHub Actions (CI/CD)
+## Screenshots
+![pic](screenshots/cafe-pos.png)
