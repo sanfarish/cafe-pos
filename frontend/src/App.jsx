@@ -9,7 +9,7 @@ import { useEffect } from 'react'
 export default function App() {
 
   useEffect(() => {
-    const snapScript = "https://app.stg.midtrans.com/snap/snap.js"
+    const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js"
     const clientKey = import.meta.env.VITE_CLIENT_KEY
     const script = document.createElement('script')
     script.src = snapScript
