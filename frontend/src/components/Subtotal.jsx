@@ -1,66 +1,40 @@
-import { useEffect, useState } from 'react'
-import { Button, FormControl, InputLabel, List, ListItem, ListItemText, MenuItem, Paper, Select, TextField, Typography } from '@mui/material'
-import useAPI from '../hooks/useAPI'
-import { useData } from '../contexts/DataProvider'
+import { Button, ListItem, ListItemText, Paper, TextField, Typography } from '@mui/material'
+import { useOrder } from '../contexts/OrderContext'
+import axios from "axios"
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 
 export default function Subtotal() {
+  const { order } = useOrder()
 
-  // eslint-disable-next-line no-unused-vars
-  const { response, error, loading } = useAPI({ method: "get", url: "/payments" })
-  const { payments, setPayments } = useData()
-  const [input, setInput] = useState("")
-
-  useEffect(() => {
-    if (response !== null) {
-      setPayments(response)
+  async function handlePay() {
+    const data = {
+      id: crypto.randomUUID(),
+      total: order.total
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response])
-
-  function handleChange(e) {
-    setInput(e.target.value)
+    console.log(data)
+    axios.post("/orders", data)
+    .then(res => {
+      console.log(res.data)
+      window.snap.pay(res.data.token)
+    })
   }
   
   return (
     <Paper elevation={6} sx={{ p: 2 }}>
 
-      <List disablePadding>
+      <ListItem disablePadding>
+        <ListItemText primary="Subtotal" />
+        <Typography>{order.total}</Typography>
+      </ListItem>
 
-        <ListItem disablePadding>
-          <ListItemText primary="Subtotal" />
-          <Typography>Rp xxx.xxx,xx</Typography>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemText primary="Tax" />
-          <Typography>(10%) Rp xxx.xxx,xx</Typography>
-        </ListItem>
-        
-        <ListItem disablePadding>
-          <ListItemText primary="Total" />
-          <Typography>Rp xxx.xxx,xx</Typography>
-        </ListItem>
-      </List>
-
-      <TextField variant="outlined" size='medium' label="Name" fullWidth
+      <TextField variant="outlined" size='medium' label="Table Number" fullWidth
         sx={{ mt: 1, mb: 1 }}
       />
 
-      <FormControl fullWidth sx={{ mb: 1 }}>
-        <InputLabel id="payment">Payment</InputLabel>
-        <Select
-          labelId="payment"
-          value={input}
-          label="Payment"
-          onChange={handleChange}
-        >
-          {payments && payments.map(item => {
-            return <MenuItem key={payments.indexOf(item)} value={item.id}>{item.name}</MenuItem>
-          })}
-        </Select>
-      </FormControl>
-
-      <Button variant='contained' size='large' fullWidth>Pay</Button>
+      <Button variant='contained' size='large' fullWidth
+        onClick={handlePay}
+      >Pay</Button>
     </Paper>
   )
 }

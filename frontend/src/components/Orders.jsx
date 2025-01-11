@@ -52,18 +52,30 @@ function Orders() {
       if (cart.some(object => object.quantity < 1)) {
         cart = cart.filter(object => object.quantity >= 1 && object)
       }
-      return { ...prev, cart }
+      const total = prev.total + (mode === "add" ? item.price : -item.price)
+      return { ...prev, cart, total }
     })
   }
   
   function handleChange(item, quantity) {
     setOrder(prev => {
-      return { ...prev, cart: prev.cart.map(object => {
+      const cart = prev.cart.map(object => {
         if (object.id === item.id && /./.test(quantity)) {
           return { ...object, quantity: parseInt(quantity) }
         }
         return object
-      })}
+      })
+      let total = prev.total
+      const oldItem = prev.cart.filter(object => object.id === item.id)
+      const oldQuantity = oldItem[0].quantity
+      if (/./.test(quantity)) {
+        if (parseInt(quantity) > oldQuantity) {
+          total = prev.total + ((parseInt(quantity) - oldQuantity) * item.price)
+        } else if (parseInt(quantity) < oldQuantity) {
+          total = prev.total - ((oldQuantity - parseInt(quantity)) * item.price)
+        }
+      }
+      return { ...prev, cart, total }
     })
   }
 

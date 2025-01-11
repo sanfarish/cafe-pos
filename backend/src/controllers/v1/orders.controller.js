@@ -1,5 +1,12 @@
 const models = require("../../models");
+const Midtrans = require("midtrans-client")
 const asyncWrapper = require("../../middlewares/asyncWrapper");
+
+const snap = new Midtrans.Snap({
+	isProduction: false,
+	clientKey: process.env.MIDTRANS_CLIENT_KEY,
+	serverKey: process.env.MIDTRANS_SERVER_KEY
+})
 
 const getAll = asyncWrapper(async (req, res) => {
 	const draft = await models.orders.findAll({
@@ -18,6 +25,19 @@ const getAll = asyncWrapper(async (req, res) => {
 	);
 	res.status(200).json(data);
 });
+
+const transactions = asyncWrapper(async (req, res) => {
+	console.log(req.body)
+	const { id, total } = req.body
+	const parameter = {
+		transaction_details: {
+			order_id: id,
+			gross_amount: total
+		}
+	}
+	const token = await snap.createTransactionToken(JSON.stringify(parameter))
+	res.status(200).json({ token })
+})
 
 const create = asyncWrapper(async (req, res) => {
 	const ordersDraft = await models.orders.create({
@@ -80,4 +100,4 @@ const remove = asyncWrapper(async (req, res) => {
 // 	});
 // });
 
-module.exports = { getAll, create, remove, /* update */ };
+module.exports = { getAll, transactions, create, remove, /* update */ };

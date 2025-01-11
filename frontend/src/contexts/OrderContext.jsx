@@ -16,7 +16,8 @@ export function OrderProvider({ children }) {
     const [order, setOrder] = useState({
         name: "",
         payment: null,
-        cart: []
+        cart: [],
+        total: 0
     })
     const [focus, setFocus] = useState(false)
 
