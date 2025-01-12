@@ -20,4 +20,4 @@
 - Nginx
 - GitHub Actions (CI/CD)
 ## Screenshots
-![pic](screenshots/cafe-pos.png)
+![pic](screenshots/screenshot1.png)
