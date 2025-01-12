@@ -4,12 +4,14 @@
 - My other projects: https://farishasan.web.id
 ## Information
 - Start Date: October 2024
-- Description:  This is a simple POS app for a cafe. It allows users to add items to their order, view their order, and checkout. The app uses a simple text-based interface. The app also includes a menu with prices for the items.
+- Description:  This is a simple POS app for a cafe. It allows users to add items to their order, view their order, and checkout with payment gateway (Midtrans). The app also includes a menu with prices for the items.
 ## Tech Stack used
 ### Frontend
+- Midtrans
 - Vite + React (Javascript)
 - Material UI
 ### Backend
+- Midtrans
 - Node + Express(Javascript)
 - MySQL
 - Sequelize
